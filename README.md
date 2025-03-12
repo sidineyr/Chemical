@@ -1,7 +1,3 @@
-Here’s the **first version** of the README, updated with the corrected URLs as proposed in the last version. This ensures consistency with the repository name **Chemical** and the user **sidineyr**.
-
----
-
 # Chemistry Learning with Algorithms and Python
 
 Welcome to the **Chemistry Learning with Algorithms and Python** repository! This project is designed to help students, researchers, and enthusiasts learn and explore chemistry concepts using computational methods and algorithms implemented in Python. Whether you're interested in atomic models, molecular dynamics, or chemical reactions, this repository provides tools and examples to deepen your understanding.
