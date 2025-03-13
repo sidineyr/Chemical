@@ -1,0 +1,129 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+% Configurações para o código Python
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\title{Visualização de um Modelo Atômico em 3D}
+\author{Seu Nome}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+Este documento descreve a implementação de um script em Python para visualizar um modelo atômico em 3D com animação. O script utiliza as bibliotecas \texttt{matplotlib} e \texttt{numpy} para criar uma representação animada de elétrons orbitando um núcleo.
+
+\section{Código Python}
+Abaixo está o código Python completo para a visualização do modelo atômico em 3D.
+
+\begin{lstlisting}[language=Python, caption={Script Python para visualização de um modelo atômico em 3D}]
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.animation as animation
+
+# Constants
+ELECTRON_COLOR = "blue"
+NUCLEUS_COLOR = "red"
+ELECTRON_SIZE = 50
+NUCLEUS_SIZE = 100
+ORBIT_RADIUS = 5
+NUM_ELECTRONS = 8
+FRAMES = 100
+
+# Create a figure and 3D axis
+fig = plt.figure()
+ax = fig.add_subplot(111, projection="3d")
+
+# Set axis limits
+ax.set_xlim([-ORBIT_RADIUS, ORBIT_RADIUS])
+ax.set_ylim([-ORBIT_RADIUS, ORBIT_RADIUS])
+ax.set_zlim([-ORBIT_RADIUS, ORBIT_RADIUS])
+
+# Hide grid and axes for better visualization
+ax.grid(False)
+ax.set_xticks([])
+ax.set_yticks([])
+ax.set_zticks([])
+
+# Draw the nucleus (central atom)
+nucleus = ax.scatter([0], [0], [0], color=NUCLEUS_COLOR, s=NUCLEUS_SIZE)
+
+# Initialize electron positions
+electrons = ax.scatter([], [], [], color=ELECTRON_COLOR, s=ELECTRON_SIZE)
+
+# Function to update electron positions for animation
+def update(frame):
+    # Calculate electron positions in circular orbits
+    angles = np.linspace(0, 2 * np.pi, NUM_ELECTRONS, endpoint=False)
+    x = ORBIT_RADIUS * np.cos(angles + frame * 0.1)
+    y = ORBIT_RADIUS * np.sin(angles + frame * 0.1)
+    z = np.zeros_like(x)
+
+    # Update electron positions
+    electrons._offsets3d = (x, y, z)
+    return electrons,
+
+# Create the animation
+ani = animation.FuncAnimation(
+    fig, update, frames=FRAMES, interval=50, blit=True
+)
+
+# Display the animation
+plt.show()
+\end{lstlisting}
+
+\section{Explicação do Código}
+O código Python acima cria uma visualização 3D de um modelo atômico com as seguintes características:
+
+\begin{itemize}
+    \item \textbf{Núcleo}: Representado por um ponto central de cor vermelha.
+    \item \textbf{Elétrons}: Representados por pontos azuis que orbitam o núcleo em trajetórias circulares.
+    \item \textbf{Animação}: Utiliza a função \texttt{FuncAnimation} da biblioteca \texttt{matplotlib.animation} para criar uma animação suave dos elétrons em movimento.
+\end{itemize}
+
+\section{Requisitos}
+Para executar o script, é necessário instalar as seguintes bibliotecas Python:
+
+\begin{verbatim}
+pip install numpy matplotlib
+\end{verbatim}
+
+\section{Resultado}
+Ao executar o script, uma janela será aberta exibindo a animação 3D do modelo atômico, com elétrons orbitando o núcleo em tempo real.
+
+\section{Conclusão}
+Este projeto demonstra como utilizar Python e bibliotecas gráficas para criar visualizações científicas interativas. O código pode ser facilmente adaptado para representar outros modelos físicos ou químicos.
+
+\end{document}
