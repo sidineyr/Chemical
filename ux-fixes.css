@@ -1,0 +1,36 @@
+/* Correções verificadas na auditoria de experiência e acessibilidade. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.lesson-panel {
+  inset: 0;
+  z-index: 30;
+  padding: clamp(5rem, 8vw, 7rem) clamp(1rem, 14vw, 14rem);
+}
+
+.lesson-panel .close {
+  top: 18px;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+}
+
+@media (max-width: 850px) {
+  .topbar nav {
+    padding: .65rem 1rem 1rem;
+    gap: .15rem;
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 14px 28px rgba(7, 26, 43, .12);
+  }
+
+  .topbar nav a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: .55rem .35rem;
+  }
+}

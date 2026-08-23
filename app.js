@@ -47,12 +47,25 @@ function loadProgress(){
   }
 }
 let completed=loadProgress();
+let lessonOpener=null;
 const grid=$('#lessonGrid');
 function renderLessons(){grid.innerHTML=lessons.map(l=>`<article class="lesson-card ${completed.has(l.id)?'completed':''}"><span class="number">${l.n}</span><span class="tag">${l.bncc}</span><h3>${l.title}</h3><p>${l.summary}</p><button data-lesson="${l.id}">Abrir aula • ${l.time}</button></article>`).join('');$$('[data-lesson]').forEach(b=>b.onclick=()=>openLesson(b.dataset.lesson));updateProgress()}
-function openLesson(id){const l=lessons.find(x=>x.id===id);$('#lessonContent').innerHTML=`<p class="eyebrow">AULA ${l.n}</p><h2>${l.title}</h2><div class="lesson-meta"><span>${l.time}</span><span>BNCC ${l.bncc}</span></div><article class="lesson-body">${l.body}</article><div class="lesson-actions"><button class="button primary" id="completeLesson">${completed.has(id)?'Aula concluída ✓':'Marcar como concluída'}</button></div>`;$('#lessonPanel').classList.remove('hidden');document.body.style.overflow='hidden';$('#completeLesson').onclick=()=>{completed.add(id);localStorage.setItem('chemical-progress',JSON.stringify([...completed]));renderLessons();$('#completeLesson').textContent='Aula concluída ✓'}}
-$('#closeLesson').onclick=()=>{$('#lessonPanel').classList.add('hidden');document.body.style.overflow=''};
+function openLesson(id){const l=lessons.find(x=>x.id===id);lessonOpener=document.activeElement;$('#lessonContent').innerHTML=`<p class="eyebrow">AULA ${l.n}</p><h2 id="lessonTitle">${l.title}</h2><div class="lesson-meta"><span>${l.time}</span><span>BNCC ${l.bncc}</span></div><article class="lesson-body">${l.body}</article><div class="lesson-actions"><button class="button primary" id="completeLesson">${completed.has(id)?'Aula concluída ✓':'Marcar como concluída'}</button></div>`;$('#lessonPanel').classList.remove('hidden');document.body.style.overflow='hidden';$('#closeLesson').focus();$('#completeLesson').onclick=()=>{completed.add(id);localStorage.setItem('chemical-progress',JSON.stringify([...completed]));renderLessons();$('#completeLesson').textContent='Aula concluída ✓'}}
+function closeLesson(){const panel=$('#lessonPanel');if(panel.classList.contains('hidden'))return;panel.classList.add('hidden');document.body.style.overflow='';if(lessonOpener?.isConnected)lessonOpener.focus();lessonOpener=null}
+$('#closeLesson').onclick=closeLesson;
 function updateProgress(){const pct=Math.round(completed.size/lessons.length*100);$('#progress').value=pct;$('#progressLabel').textContent=`${pct}%`}
-$('#menuBtn').onclick=()=>{const nav=$('#nav');nav.classList.toggle('open');$('#menuBtn').setAttribute('aria-expanded',nav.classList.contains('open'))};$$('#nav a').forEach(a=>a.onclick=()=>$('#nav').classList.remove('open'));
+function closeMenu(){const nav=$('#nav');nav.classList.remove('open');$('#menuBtn').setAttribute('aria-expanded','false')}
+$('#menuBtn').onclick=()=>{const nav=$('#nav');nav.classList.toggle('open');$('#menuBtn').setAttribute('aria-expanded',String(nav.classList.contains('open')))};$$('#nav a').forEach(a=>a.onclick=closeMenu);
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape'){closeMenu();closeLesson();return}
+  const panel=$('#lessonPanel');
+  if(event.key==='Tab'&&!panel.classList.contains('hidden')){
+    const focusable=[...panel.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(el=>!el.disabled);
+    const first=focusable[0],last=focusable.at(-1);
+    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+    else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+  }
+});
 
 const atomCanvas=$('#atomCanvas'),actx=atomCanvas.getContext('2d');let atomFrame=0;
 const symbols=['','H','He','Li','Be','B','C','N','O','F','Ne','Na','Mg','Al','Si','P','S','Cl','Ar'];

@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#071a2b">
   <title>Chemical — Química para compreender o mundo</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="ux-fixes.css">
 </head>
 <body>
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
@@ -45,7 +46,7 @@
       <div id="lessonGrid" class="lesson-grid"></div>
     </section>
 
-    <section id="lessonPanel" class="lesson-panel hidden" aria-live="polite">
+    <section id="lessonPanel" class="lesson-panel hidden" role="dialog" aria-modal="true" aria-labelledby="lessonTitle" tabindex="-1">
       <button id="closeLesson" class="close" aria-label="Fechar aula">×</button>
       <div id="lessonContent"></div>
     </section>
