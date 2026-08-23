@@ -37,7 +37,16 @@ const questions=[
 ];
 
 const $=s=>document.querySelector(s);const $$=s=>[...document.querySelectorAll(s)];
-let completed=new Set(JSON.parse(localStorage.getItem('chemical-progress')||'[]'));
+function loadProgress(){
+  try{
+    const saved=JSON.parse(localStorage.getItem('chemical-progress')||'[]');
+    return new Set(Array.isArray(saved)?saved:[]);
+  }catch{
+    localStorage.removeItem('chemical-progress');
+    return new Set();
+  }
+}
+let completed=loadProgress();
 const grid=$('#lessonGrid');
 function renderLessons(){grid.innerHTML=lessons.map(l=>`<article class="lesson-card ${completed.has(l.id)?'completed':''}"><span class="number">${l.n}</span><span class="tag">${l.bncc}</span><h3>${l.title}</h3><p>${l.summary}</p><button data-lesson="${l.id}">Abrir aula • ${l.time}</button></article>`).join('');$$('[data-lesson]').forEach(b=>b.onclick=()=>openLesson(b.dataset.lesson));updateProgress()}
 function openLesson(id){const l=lessons.find(x=>x.id===id);$('#lessonContent').innerHTML=`<p class="eyebrow">AULA ${l.n}</p><h2>${l.title}</h2><div class="lesson-meta"><span>${l.time}</span><span>BNCC ${l.bncc}</span></div><article class="lesson-body">${l.body}</article><div class="lesson-actions"><button class="button primary" id="completeLesson">${completed.has(id)?'Aula concluída ✓':'Marcar como concluída'}</button></div>`;$('#lessonPanel').classList.remove('hidden');document.body.style.overflow='hidden';$('#completeLesson').onclick=()=>{completed.add(id);localStorage.setItem('chemical-progress',JSON.stringify([...completed]));renderLessons();$('#completeLesson').textContent='Aula concluída ✓'}}
