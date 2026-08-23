@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Chemical: portal aberto para aprender Química com aulas, simulações, jogos e avaliações.">
+  <meta name="theme-color" content="#071a2b">
+  <title>Chemical — Química para compreender o mundo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Chemical, página inicial"><span class="brand-mark">C</span><span>Chemical</span></a>
+    <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Navegação principal">
+      <a href="#trilhas">Aulas</a><a href="#laboratorio">Laboratório</a><a href="#jogos">Jogos</a><a href="#avaliacao">Avaliação</a><a href="#fontes">Fontes</a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section id="inicio" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">CIÊNCIA ABERTA • ENSINO MÉDIO</p>
+        <h1>Química para <em>compreender</em> o mundo.</h1>
+        <p>Aprenda investigando matéria, energia e transformações. Observe, formule hipóteses, teste ideias e explique evidências.</p>
+        <div class="actions"><a class="button primary" href="#trilhas">Começar a aprender</a><a class="button ghost" href="#laboratorio">Abrir laboratório</a></div>
+        <div class="progress-wrap" aria-label="Progresso no curso"><div><span>Seu progresso</span><strong id="progressLabel">0%</strong></div><progress id="progress" max="100" value="0">0%</progress></div>
+      </div>
+      <div class="hero-visual" aria-label="Animação abstrata de partículas" role="img">
+        <div class="orbital o1"></div><div class="orbital o2"></div><div class="orbital o3"></div>
+        <div class="nucleus"><span></span><span></span><span></span><span></span></div>
+        <i class="electron e1"></i><i class="electron e2"></i><i class="electron e3"></i>
+      </div>
+    </section>
+
+    <section class="principles" aria-label="Princípios do portal">
+      <article><b>01</b><h2>Observe</h2><p>Fenômenos cotidianos antes das fórmulas.</p></article>
+      <article><b>02</b><h2>Modele</h2><p>Representações com limites explicitados.</p></article>
+      <article><b>03</b><h2>Investigue</h2><p>Evidência, argumentação e responsabilidade.</p></article>
+    </section>
+
+    <section id="trilhas" class="section">
+      <div class="section-head"><div><p class="eyebrow">TRILHAS DE APRENDIZAGEM</p><h2>Da matéria à transformação</h2></div><p>Sequência alinhada às competências de Ciências da Natureza da BNCC. Cada aula combina conceito, contexto, investigação e prática.</p></div>
+      <div id="lessonGrid" class="lesson-grid"></div>
+    </section>
+
+    <section id="lessonPanel" class="lesson-panel hidden" aria-live="polite">
+      <button id="closeLesson" class="close" aria-label="Fechar aula">×</button>
+      <div id="lessonContent"></div>
+    </section>
+
+    <section id="laboratorio" class="section lab-section">
+      <div class="section-head"><div><p class="eyebrow">LABORATÓRIO DIGITAL</p><h2>Manipule modelos, não substâncias</h2></div><p>Simulações conceituais não substituem experimentos supervisionados. Nunca misture produtos domésticos.</p></div>
+      <div class="lab-grid">
+        <article class="lab-card">
+          <div class="card-title"><div><span class="tag">SIMULADOR 01</span><h3>Construtor de átomo</h3></div><span id="atomCharge" class="status neutral">neutro</span></div>
+          <canvas id="atomCanvas" width="520" height="330" aria-label="Representação didática animada de um átomo"></canvas>
+          <div class="controls triple">
+            <label>Prótons <span id="pValue">6</span><input id="protons" type="range" min="1" max="18" value="6"></label>
+            <label>Nêutrons <span id="nValue">6</span><input id="neutrons" type="range" min="0" max="22" value="6"></label>
+            <label>Elétrons <span id="eValue">6</span><input id="electrons" type="range" min="0" max="18" value="6"></label>
+          </div>
+          <p id="atomReading" class="reading"></p>
+          <p class="model-note">Modelo didático em camadas; elétrons reais são descritos por orbitais e distribuições de probabilidade.</p>
+        </article>
+        <article class="lab-card">
+          <div class="card-title"><div><span class="tag">SIMULADOR 02</span><h3>Estados da matéria</h3></div><span id="tempLabel" class="status">25 °C</span></div>
+          <canvas id="matterCanvas" width="520" height="330" aria-label="Partículas representando estados físicos da água"></canvas>
+          <label class="wide-control">Temperatura aproximada da água<input id="temperature" type="range" min="-30" max="130" value="25"></label>
+          <p id="matterReading" class="reading"></p>
+          <p class="model-note">Modelo qualitativo em pressão atmosférica aproximada; não representa escala, forma ou velocidade molecular real.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="jogos" class="section dark-section">
+      <div class="section-head"><div><p class="eyebrow">APRENDER JOGANDO</p><h2>Desafio, tentativa e explicação</h2></div><p>Errar aqui produz informação. Use o feedback para reconstruir seu raciocínio.</p></div>
+      <div class="game-grid">
+        <article class="game-card">
+          <span class="tag">JOGO 01</span><h3>Quem sou eu?</h3><p id="elementClue">Carregando pista…</p>
+          <div id="elementOptions" class="option-grid"></div><p id="elementFeedback" class="feedback" aria-live="polite"></p>
+          <button id="nextElement" class="button ghost" type="button">Nova rodada</button>
+        </article>
+        <article class="game-card">
+          <span class="tag">JOGO 02</span><h3>Balanceie a reação</h3><p>Ajuste os coeficientes para conservar cada elemento.</p>
+          <div class="equation"><input id="coefA" type="number" min="1" max="9" value="1" aria-label="Coeficiente do hidrogênio"> H₂ + <input id="coefB" type="number" min="1" max="9" value="1" aria-label="Coeficiente do oxigênio"> O₂ → <input id="coefC" type="number" min="1" max="9" value="1" aria-label="Coeficiente da água"> H₂O</div>
+          <button id="checkBalance" class="button primary" type="button">Verificar conservação</button><p id="balanceFeedback" class="feedback" aria-live="polite"></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="avaliacao" class="section assessment">
+      <div class="section-head"><div><p class="eyebrow">AVALIAÇÃO FORMATIVA</p><h2>Descubra o que já sabe</h2></div><p>Dez questões sorteadas, resultado imediato e indicação do que revisar. A nota fica somente neste navegador.</p></div>
+      <div id="quizIntro" class="assessment-intro"><div class="score-ring"><strong>10</strong><span>questões</span></div><div><h3>Avaliação geral</h3><p>Tempo sugerido: 15 minutos. Você poderá refazer com novas perguntas.</p><button id="startQuiz" class="button primary">Iniciar avaliação</button></div></div>
+      <form id="quizForm" class="hidden"></form>
+      <div id="quizResult" class="result hidden" aria-live="polite"></div>
+    </section>
+
+    <section id="fontes" class="section sources">
+      <div class="section-head"><div><p class="eyebrow">CIÊNCIA CONFIÁVEL</p><h2>Fontes para continuar</h2></div><p>Links institucionais, acadêmicos e profissionais. Consulte autoria, data, método e evidências.</p></div>
+      <div class="source-grid">
+        <a href="https://www.gov.br/mec/pt-br/politica-nacional-ensino-medio" target="_blank" rel="noopener"><b>MEC</b><span>BNCC e Ensino Médio</span></a>
+        <a href="https://qnesc.sbq.org.br/" target="_blank" rel="noopener"><b>QNEsc / SBQ</b><span>Pesquisa em ensino de Química</span></a>
+        <a href="https://cfq.org.br/" target="_blank" rel="noopener"><b>CFQ</b><span>Profissão, ética e segurança</span></a>
+        <a href="https://phet.colorado.edu/pt_BR/simulations/filter?subjects=chemistry&type=html" target="_blank" rel="noopener"><b>PhET</b><span>Simulações interativas gratuitas</span></a>
+        <a href="https://pubchem.ncbi.nlm.nih.gov/" target="_blank" rel="noopener"><b>PubChem</b><span>Dados de compostos químicos</span></a>
+        <a href="https://iupac.org/what-we-do/periodic-table-of-elements/" target="_blank" rel="noopener"><b>IUPAC</b><span>Tabela periódica e nomenclatura</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="brand"><span class="brand-mark">C</span><span>Chemical</span></div><p>Educação científica aberta, crítica e acessível.</p><p>Conteúdo educacional. Experimentos reais exigem professor, infraestrutura e protocolo de segurança.</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>
