@@ -12,12 +12,28 @@
 <body>
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
   <header class="topbar">
-    <a class="brand" href="#inicio" aria-label="Chemical, página inicial"><span class="brand-mark">C</span><span>Chemical</span></a>
+    <a class="brand notranslate" href="#inicio" aria-label="Chemical, página inicial" translate="no"><span class="brand-mark">C</span><span>Chemical</span></a>
     <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav id="nav" aria-label="Navegação principal">
       <a href="#trilhas">Aulas</a><a href="#laboratorio">Laboratório</a><a href="#jogos">Jogos</a><a href="#avaliacao">Avaliação</a><a href="#quem-sou">Quem sou</a><a href="#fontes">Fontes</a>
+      <div class="language-control"><span class="language-label">Idioma</span><div id="google_translate_element"></div></div>
     </nav>
   </header>
+
+  <div id="languageWelcome" class="language-welcome hidden" role="dialog" aria-modal="true" aria-labelledby="languageTitle">
+    <div class="language-welcome-card">
+      <span class="language-symbol notranslate" aria-hidden="true" translate="no">文 A</span>
+      <p class="eyebrow">BEM-VINDO • WELCOME • BIENVENIDO</p>
+      <h2 id="languageTitle">Escolha seu idioma</h2>
+      <p>O conteúdo original é em português. Selecione um idioma para traduzir o portal ou continue na versão original.</p>
+      <label for="welcomeLanguageFallback">Idioma da experiência</label>
+      <div id="welcomeLanguageSlot"><select id="welcomeLanguageFallback" disabled><option>Carregando idiomas…</option></select></div>
+      <div class="language-actions">
+        <button id="continuePortuguese" class="button primary" type="button">Continuar em português</button>
+      </div>
+      <small>Tradução automática fornecida pelo Google. Termos científicos podem exigir conferência na fonte original.</small>
+    </div>
+  </div>
 
   <main id="conteudo">
     <section id="inicio" class="hero">
@@ -142,5 +158,6 @@
 
   <footer><div class="brand"><span class="brand-mark">C</span><span>Chemical</span></div><p>Idealizado e desenvolvido por <a href="#quem-sou">Sidiney Rodrigues</a>.</p><p>Conteúdo educacional. Experimentos reais exigem professor, infraestrutura e protocolo de segurança.</p></footer>
   <script src="app.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
 </html>

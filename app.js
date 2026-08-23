@@ -37,6 +37,38 @@ const questions=[
 ];
 
 const $=s=>document.querySelector(s);const $$=s=>[...document.querySelectorAll(s)];
+let translateSelect=null,translateSelectHome=null;
+function closeLanguageWelcome(){
+  $('#languageWelcome').classList.add('hidden');
+  document.body.style.overflow='';
+  localStorage.setItem('chemical-language-welcome','seen');
+  const selectHadFocus=document.activeElement===translateSelect;
+  if(translateSelect&&translateSelectHome){translateSelectHome.appendChild(translateSelect);translateSelect.classList.remove('welcome-language-select')}
+  if(!selectHadFocus)$('.brand').focus();
+}
+function syncWelcomeLanguages(){
+  const googleSelect=document.querySelector('.goog-te-combo');
+  if(!googleSelect)return false;
+  translateSelect=googleSelect;translateSelectHome=googleSelect.parentElement;
+  if(!localStorage.getItem('chemical-language-welcome')){
+    $('#welcomeLanguageSlot').replaceChildren(googleSelect);
+    googleSelect.classList.add('welcome-language-select');
+    googleSelect.addEventListener('change',closeLanguageWelcome,{once:true});
+  }
+  return true;
+}
+window.googleTranslateElementInit=()=>{
+  new google.translate.TranslateElement({pageLanguage:'pt',autoDisplay:false},'google_translate_element');
+  const waitForLanguages=setInterval(()=>{if(syncWelcomeLanguages())clearInterval(waitForLanguages)},100);
+  setTimeout(()=>clearInterval(waitForLanguages),10000);
+};
+function initializeLanguageWelcome(){
+  if(localStorage.getItem('chemical-language-welcome'))return;
+  $('#languageWelcome').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+  $('#continuePortuguese').focus();
+}
+$('#continuePortuguese').onclick=closeLanguageWelcome;
 function loadProgress(){
   try{
     const saved=JSON.parse(localStorage.getItem('chemical-progress')||'[]');
@@ -57,6 +89,15 @@ function updateProgress(){const pct=Math.round(completed.size/lessons.length*100
 function closeMenu(){const nav=$('#nav');nav.classList.remove('open');$('#menuBtn').setAttribute('aria-expanded','false')}
 $('#menuBtn').onclick=()=>{const nav=$('#nav');nav.classList.toggle('open');$('#menuBtn').setAttribute('aria-expanded',String(nav.classList.contains('open')))};$$('#nav a').forEach(a=>a.onclick=closeMenu);
 document.addEventListener('keydown',event=>{
+  const languageDialog=$('#languageWelcome');
+  if(event.key==='Escape'&&!languageDialog.classList.contains('hidden')){closeLanguageWelcome();return}
+  if(event.key==='Tab'&&!languageDialog.classList.contains('hidden')){
+    const languageFocusable=[...languageDialog.querySelectorAll('button,select,[href],[tabindex]:not([tabindex="-1"])')].filter(el=>!el.disabled);
+    const first=languageFocusable[0],last=languageFocusable.at(-1);
+    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+    else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+    return;
+  }
   if(event.key==='Escape'){closeMenu();closeLesson();return}
   const panel=$('#lessonPanel');
   if(event.key==='Tab'&&!panel.classList.contains('hidden')){
@@ -86,3 +127,4 @@ $('#checkBalance').onclick=()=>{const [a,b,c]=['coefA','coefB','coefC'].map(id=>
 let activeQuiz=[];$('#startQuiz').onclick=()=>{activeQuiz=[...questions].sort(()=>Math.random()-.5).slice(0,10);$('#quizIntro').classList.add('hidden');$('#quizResult').classList.add('hidden');const f=$('#quizForm');f.innerHTML=activeQuiz.map((q,i)=>`<article class="quiz-question"><fieldset><legend>${i+1}. ${q[0]}</legend>${q[1].map((o,j)=>`<label><input type="radio" name="q${i}" value="${j}" required> ${o}</label>`).join('')}</fieldset></article>`).join('')+`<button class="button primary" type="submit">Corrigir avaliação</button>`;f.classList.remove('hidden');f.scrollIntoView({behavior:'smooth'})};
 $('#quizForm').onsubmit=e=>{e.preventDefault();const fd=new FormData(e.target),wrong=[];let score=0;activeQuiz.forEach((q,i)=>{if(+fd.get(`q${i}`)===q[2])score++;else wrong.push(q[3])});const pct=score*10;localStorage.setItem('chemical-last-score',score);$('#quizResult').innerHTML=`<h3>Resultado: ${score}/10 (${pct}%)</h3><p>${score>=8?'Ótimo domínio dos conceitos essenciais.':score>=6?'Boa base; revise os temas indicados.':'Use o resultado como mapa de estudo e tente novamente.'}</p>${wrong.length?`<p><b>Revisar:</b> ${[...new Set(wrong)].join(', ')}.</p>`:''}<button class="button ghost" id="retryQuiz">Refazer com novas questões</button>`;$('#quizResult').classList.remove('hidden');$('#retryQuiz').onclick=()=>$('#startQuiz').click();$('#quizResult').scrollIntoView({behavior:'smooth'})};
 renderLessons();
+initializeLanguageWelcome();

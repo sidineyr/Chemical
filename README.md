@@ -23,6 +23,10 @@ O portal inclui seis trilhas:
 
 Também oferece um construtor de átomo, um simulador qualitativo de estados físicos, jogos de elementos e balanceamento, exercícios e uma avaliação de dez questões sorteadas. O progresso é salvo apenas no `localStorage` do navegador.
 
+## Idiomas
+
+O conteúdo-fonte é escrito em português brasileiro. O portal integra o seletor de tradução de páginas do Google, com escolha inicial e acesso permanente pelo menu. A preferência fica no navegador. Como a tradução é automática, terminologia científica deve ser conferida na versão original e nas fontes institucionais indicadas pelo portal.
+
 ## Executar
 
 Não há dependências ou etapa de compilação. Abra `index.html` ou inicie um servidor local:

@@ -35,6 +35,42 @@ input:focus-visible {
   }
 }
 
+/* Seleção global de idioma */
+.language-control { display: flex; align-items: center; gap: .45rem; padding-left: .8rem; border-left: 1px solid var(--line); }
+.language-label { font-size: .72rem; font-weight: 850; color: var(--muted); }
+.goog-te-gadget { height: 34px; overflow: hidden; font-size: 0 !important; color: transparent !important; }
+.goog-te-gadget .goog-te-combo { min-width: 132px; height: 34px; margin: 0 !important; padding: 0 1.8rem 0 .65rem; border: 1px solid var(--line); border-radius: 9px; background: var(--white); color: var(--ink); font: 700 .78rem Inter, sans-serif; cursor: pointer; }
+.goog-logo-link,.goog-te-gadget span { display: none !important; }
+body { top: 0 !important; }
+.skiptranslate iframe { display: none !important; }
+
+.language-welcome { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 1rem; background: rgba(4,17,29,.8); backdrop-filter: blur(12px); }
+.language-welcome-card { width: min(560px,100%); padding: clamp(1.5rem,5vw,3rem); border: 1px solid rgba(255,255,255,.14); border-radius: 28px; background: var(--paper); box-shadow: 0 30px 90px rgba(0,0,0,.35); }
+.language-welcome-card h2 { margin: .15rem 0 1rem; font: clamp(2.2rem,6vw,4rem)/1 Georgia,serif; letter-spacing: -.04em; }
+.language-welcome-card>p:not(.eyebrow) { color: var(--muted); }
+.language-welcome-card label { display: block; margin: 1.4rem 0 .45rem; }
+.language-welcome-card select { width: 100%; min-height: 50px; padding: .7rem; border: 1px solid var(--line); border-radius: 12px; background: var(--white); color: var(--ink); font-weight: 750; }
+#welcomeLanguageSlot .goog-te-combo { width: 100%; min-height: 50px; margin: 0 !important; padding: .7rem; border: 1px solid var(--line); border-radius: 12px; background: var(--white); color: var(--ink); font: 750 1rem Inter,sans-serif; cursor: pointer; }
+.language-welcome-card small { display: block; margin-top: 1.2rem; color: var(--muted); }
+.language-actions { display: flex; margin-top: 1rem; }
+.language-symbol { display: grid; place-items: center; width: 68px; height: 68px; margin-bottom: 1.5rem; border-radius: 18px; background: var(--ink); color: var(--lime); font: 800 1.2rem Georgia,serif; }
+
+@media (max-width: 1120px) and (min-width: 851px) {
+  .topbar { padding-inline: 1.2rem; }
+  .topbar nav { gap: .75rem; }
+  .language-label { display: none; }
+  .language-control { padding-left: .4rem; }
+  .goog-te-gadget .goog-te-combo { min-width: 110px; max-width: 120px; }
+}
+
+@media (max-width: 850px) {
+  .language-control { min-height: 48px; margin-top: .35rem; padding: .55rem .35rem 0; border-top: 1px solid var(--line); border-left: 0; }
+  .language-label { min-width: 58px; }
+  .goog-te-gadget .goog-te-combo { width: min(230px,65vw); }
+  .language-welcome { align-items: end; padding: .65rem; }
+  .language-welcome-card { max-height: calc(100vh - 1.3rem); overflow: auto; border-radius: 24px; }
+}
+
 /* Apresentação, autoria e créditos */
 .about-section {
   color: var(--white);
