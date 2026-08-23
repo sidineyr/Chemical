@@ -60,3 +60,12 @@ O alinhamento à BNCC é pedagógico e não substitui o currículo da rede, o pr
 ## Licença
 
 MIT.
+
+## Autoria e créditos
+
+- Idealização, direção, conteúdo e decisões editoriais: **Sidiney Rodrigues**.
+- Arquitetura, programação, revisão de experiência, acessibilidade, testes e documentação: desenvolvimento assistido por **OpenAI Codex**, sob direção humana.
+- Tradução automática da interface: **Google Translate**.
+- Bases educacionais e científicas: MEC, Sociedade Brasileira de Química, Conselho Federal de Química, PhET, PubChem e IUPAC, conforme os links do portal.
+
+O Chemical é independente. Essas menções reconhecem ferramentas e fontes utilizadas e não representam patrocínio, parceria formal ou aprovação institucional do conteúdo.

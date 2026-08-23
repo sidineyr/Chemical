@@ -99,6 +99,16 @@ body { top: 0 !important; }
 .thanks-card { margin-top: clamp(3rem, 8vw, 7rem); padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius); background: rgba(255,255,255,.06); }
 .thanks-card h3 { margin: 0 0 1rem; font: clamp(1.8rem, 3vw, 3rem)/1.05 Georgia, serif; }
 .thanks-card p:not(.eyebrow) { max-width: 920px; color: #c6d2d8; }
+.project-credits { display: grid; grid-template-columns: repeat(3,1fr); gap: .8rem; margin-top: 2rem; }
+.project-credits article { display: flex; flex-direction: column; gap: 1rem; min-width: 0; padding: 1.25rem; border: 1px solid rgba(255,255,255,.16); border-radius: 16px; background: rgba(4,17,29,.38); }
+.project-credits b { display: block; color: var(--white); line-height: 1.25; }
+.project-credits p { margin: .6rem 0; color: #b8c8d0; font-size: .84rem; }
+.project-credits a { color: var(--lime); font-size: .78rem; font-weight: 800; }
+.credit-mark { display: grid; place-items: center; width: 66px; height: 48px; border-radius: 12px; background: var(--white); color: var(--ink); font-weight: 900; letter-spacing: -.03em; }
+.sidiney-mark { background: var(--lime); font: italic 1.25rem Georgia,serif; }
+.openai-mark { width: 94px; font-size: .9rem; }
+.google-mark { color: var(--blue); font-size: 1.35rem; }
+.independence-note { margin: 1.5rem 0 0; font-size: .76rem; }
 .source-grid a { min-height: 148px; justify-content: flex-end; }
 .source-grid img { width: 48px; height: 48px; margin: 0 0 auto; object-fit: contain; object-position: left center; }
 .institution-note { max-width: 900px; margin: 1.4rem 0 0; color: var(--muted); font-size: .78rem; }
@@ -108,4 +118,5 @@ footer a { color: var(--lime); }
   .about-grid { grid-template-columns: 1fr; }
   .portrait-mark { width: 110px; height: 110px; }
   .about-copy { font-size: 1.04rem; }
+  .project-credits { grid-template-columns: 1fr; }
 }
