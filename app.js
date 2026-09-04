@@ -17,6 +17,7 @@ const elements=[
   {s:'Si',name:'Silício',clue:'Sou metaloide importante em semicondutores e apareço em silicatos.'},
   {s:'Ca',name:'Cálcio',clue:'Meu íon 2+ participa de ossos, dentes e sinalização celular.'}
 ];
+const chemistryElements=ChemistryCore.elements;
 
 const questions=[
   ['Qual propriedade relaciona massa e volume?',['Densidade','Temperatura','Pressão','Solubilidade'],0,'matéria'],
@@ -120,6 +121,30 @@ function stateFor(t){return t<=0?'sólido':t>=100?'gasoso':'líquido'}
 function drawMatter(){const t=+$('#temperature').value,state=stateFor(t),speed=state==='sólido'?.15:state==='líquido'?1.2:3; mctx.fillStyle='#071a2b';mctx.fillRect(0,0,matterCanvas.width,matterCanvas.height);particles.forEach((p,i)=>{if(state==='sólido'){const tx=55+(i%7)*68,ty=185+Math.floor(i/7)*22;p.x+=(tx-p.x)*.08+(Math.random()-.5)*speed;p.y+=(ty-p.y)*.08+(Math.random()-.5)*speed}else{p.vx+=(Math.random()-.5)*.12;p.vy+=(Math.random()-.5)*.12;const mag=Math.hypot(p.vx,p.vy)||1;p.vx=p.vx/mag*speed;p.vy=p.vy/mag*speed;p.x+=p.vx;p.y+=p.vy;if(state==='líquido')p.y+=(230-p.y)*.01;if(p.x<15||p.x>505)p.vx*=-1;if(p.y<15||p.y>315)p.vy*=-1;p.x=Math.max(15,Math.min(505,p.x));p.y=Math.max(15,Math.min(315,p.y))}mctx.fillStyle=state==='gasoso'?'#c7f464':'#69e6dc';mctx.beginPath();mctx.arc(p.x,p.y,7,0,Math.PI*2);mctx.fill()});requestAnimationFrame(drawMatter)}
 function updateMatter(){const t=+$('#temperature').value,state=stateFor(t);$('#tempLabel').textContent=`${t} °C`;$('#matterReading').textContent=`Estado predominante no modelo: ${state}. ${state==='sólido'?'Partículas vibram em posições organizadas.':state==='líquido'?'Partículas próximas mudam de posição.':'Partículas muito afastadas ocupam o recipiente.'}`}
 $('#temperature').oninput=updateMatter;updateMatter();drawMatter();
+
+const periodicGrid=$('#periodicGrid');
+periodicGrid.innerHTML=chemistryElements.map(element=>`<button type="button" data-atomic="${element.atomicNumber}" style="--group:${element.group};--period:${element.period}" aria-label="${element.name}, número atômico ${element.atomicNumber}" aria-pressed="false"><small>${element.atomicNumber}</small><b>${element.symbol}</b></button>`).join('');
+$$('[data-atomic]').forEach(button=>button.onclick=()=>{
+  const element=chemistryElements.find(item=>item.atomicNumber===+button.dataset.atomic);
+  $$('[data-atomic]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+  $('#periodicReading').innerHTML=`<b>${element.name} (${element.symbol})</b><br>Número atômico ${element.atomicNumber}; grupo ${element.group}; período ${element.period}; ${element.category}.<br>Configuração: ${ChemistryCore.electronConfiguration(element.atomicNumber)}.`;
+});
+
+const ionSelect=$('#ionElement');
+ionSelect.innerHTML=chemistryElements.map(element=>`<option value="${element.atomicNumber}">${element.symbol} — ${element.name}</option>`).join('');
+let selectedCharge=0;
+function updateIon(){
+  const element=chemistryElements.find(item=>item.atomicNumber===+ionSelect.value),status=$('#ionType');
+  let count;
+  try{count=ChemistryCore.electronCount(element.atomicNumber,selectedCharge)}catch(error){$('#ionReading').textContent=error.message;return}
+  const type=selectedCharge===0?'neutro':selectedCharge>0?'cátion':'ânion';
+  status.textContent=type;status.className=`status ${selectedCharge===0?'neutral':selectedCharge>0?'positive':'negative'}`;
+  const comparison=element.commonIon===null?'Este elemento forma diferentes espécies conforme o composto e as condições.':element.commonIon===selectedCharge?'Esta é uma carga monoatômica comum em contextos introdutórios.':element.commonIon===0?'Gases nobres raramente formam íons monoatômicos estáveis em condições usuais.':`Carga monoatômica comum no modelo introdutório: ${element.commonIon>0?'+':''}${element.commonIon}.`;
+  $('#ionReading').innerHTML=`<b>${ChemistryCore.ionLabel(element,selectedCharge)}</b> tem ${element.atomicNumber} prótons e ${count} elétrons.<br>Configuração: ${ChemistryCore.electronConfiguration(count)}.<br>${comparison}`;
+}
+ionSelect.onchange=updateIon;
+$$('[data-charge]').forEach(button=>button.onclick=()=>{selectedCharge=+button.dataset.charge;$$('[data-charge]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));updateIon()});
+updateIon();
 
 let currentElement;function elementRound(){currentElement=elements[Math.floor(Math.random()*elements.length)];$('#elementClue').textContent=currentElement.clue;const wrong=elements.filter(e=>e!==currentElement).sort(()=>Math.random()-.5).slice(0,3),opts=[currentElement,...wrong].sort(()=>Math.random()-.5);$('#elementOptions').innerHTML=opts.map(e=>`<button type="button" data-symbol="${e.s}">${e.s} — ${e.name}</button>`).join('');$('#elementFeedback').textContent='';$$('[data-symbol]').forEach(b=>b.onclick=()=>{const ok=b.dataset.symbol===currentElement.s;$('#elementFeedback').textContent=ok?'Correto! A pista combina com número atômico, família ou aplicação.':`Ainda não. A resposta é ${currentElement.s} — ${currentElement.name}.`;$('#elementFeedback').className=`feedback ${ok?'ok':'bad'}`})}$('#nextElement').onclick=elementRound;elementRound();
 $('#checkBalance').onclick=()=>{const [a,b,c]=['coefA','coefB','coefC'].map(id=>+$(`#${id}`).value),ok=2*a===2*c&&2*b===c;$('#balanceFeedback').textContent=ok?`Correto: ${a} H₂ + ${b} O₂ → ${c} H₂O conserva H e O.`:'Ainda não: conte separadamente H e O nos dois lados. A menor proporção inteira é 2 : 1 : 2.';$('#balanceFeedback').className=`feedback ${ok?'ok':'bad'}`};

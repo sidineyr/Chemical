@@ -21,7 +21,7 @@ O portal inclui seis trilhas:
 5. soluções, acidez, água e ambiente;
 6. energia, cinética, eletroquímica e tecnologia.
 
-Também oferece um construtor de átomo, um simulador qualitativo de estados físicos, jogos de elementos e balanceamento, exercícios e uma avaliação de dez questões sorteadas. O progresso é salvo apenas no `localStorage` do navegador.
+Também oferece um construtor de átomo, um simulador qualitativo de estados físicos, um explorador dos 20 primeiros elementos, uma atividade de formação de íons, jogos de elementos e balanceamento, exercícios e uma avaliação de dez questões sorteadas. O progresso é salvo apenas no `localStorage` do navegador.
 
 ## Idiomas
 
@@ -36,6 +36,16 @@ python -m http.server 8000
 ```
 
 Depois visite `http://localhost:8000`.
+
+## Testes
+
+As regras compartilhadas de contagem de elétrons, carga iônica e configuração eletrônica podem ser verificadas com Node.js, sem instalar pacotes:
+
+```bash
+node tests/chemistry-core.test.js
+```
+
+O explorador periódico e o Átomo Arena usam um recorte introdutório dos elementos 1–20. Cargas comuns são apresentadas como tendências didáticas, não como regras universais.
 
 ## Publicar no GitHub Pages
 
