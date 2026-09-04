@@ -125,6 +125,23 @@
           <p id="matterReading" class="reading"></p>
           <p class="model-note">Modelo qualitativo em pressão atmosférica aproximada; não representa escala, forma ou velocidade molecular real.</p>
         </article>
+        <article class="lab-card periodic-lab">
+          <div class="card-title"><div><span class="tag">SIMULADOR 03</span><h3>Explorador periódico</h3></div><span class="status">20 elementos</span></div>
+          <p>Selecione um elemento para relacionar posição, categoria e distribuição eletrônica.</p>
+          <div id="periodicGrid" class="periodic-grid" aria-label="Tabela periódica simplificada dos primeiros 20 elementos"></div>
+          <div id="periodicReading" class="reading panel-reading" aria-live="polite">Escolha um elemento.</div>
+          <p class="model-note">Recorte introdutório dos elementos 1–20. Propriedades e classificações podem exigir contexto e fonte específica.</p>
+        </article>
+        <article class="lab-card ion-lab">
+          <div class="card-title"><div><span class="tag">SIMULADOR 04</span><h3>Átomo Arena: íons</h3></div><span id="ionType" class="status neutral">neutro</span></div>
+          <label for="ionElement">Elemento</label>
+          <select id="ionElement" class="wide-select"></select>
+          <fieldset class="charge-picker"><legend>Escolha a carga do íon</legend>
+            <button type="button" data-charge="2">+2</button><button type="button" data-charge="1">+1</button><button type="button" data-charge="0">0</button><button type="button" data-charge="-1">−1</button><button type="button" data-charge="-2">−2</button>
+          </fieldset>
+          <div id="ionReading" class="reading panel-reading" aria-live="polite"></div>
+          <p class="model-note">Carga positiva significa perda de elétrons; carga negativa significa ganho. O íon mais comum é uma tendência didática, não uma regra universal.</p>
+        </article>
       </div>
     </section>
 
@@ -209,6 +226,7 @@
   </main>
 
   <footer><div class="brand"><span class="brand-mark">C</span><span>Chemical</span></div><p>Idealizado por <a href="#quem-sou">Sidiney Rodrigues</a>, com desenvolvimento assistido por <a href="https://developers.openai.com/codex/" target="_blank" rel="noopener noreferrer">OpenAI Codex</a>.</p><p>Conteúdo educacional. Experimentos reais exigem professor, infraestrutura e protocolo de segurança.</p></footer>
+  <script src="chemistry-core.js"></script>
   <script src="app.js"></script>
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>

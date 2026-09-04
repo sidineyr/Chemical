@@ -120,3 +120,21 @@ footer a { color: var(--lime); }
   .about-copy { font-size: 1.04rem; }
   .project-credits { grid-template-columns: 1fr; }
 }
+
+/* Explorador periódico e formação de íons */
+.periodic-grid { display: grid; grid-template-columns: repeat(18,minmax(32px,1fr)); gap: 4px; margin: 1rem 0; overflow-x: auto; padding-bottom: .4rem; }
+.periodic-grid button { grid-column: var(--group); grid-row: var(--period); min-width: 38px; min-height: 52px; padding: .25rem; border: 1px solid var(--line); border-radius: 8px; background: #eef3ef; color: var(--ink); cursor: pointer; }
+.periodic-grid button:hover,.periodic-grid button[aria-pressed="true"] { border-color: var(--blue); background: #dfe9ff; box-shadow: inset 0 0 0 1px var(--blue); }
+.periodic-grid small,.periodic-grid b { display: block; line-height: 1.1; }
+.periodic-grid small { font-size: .58rem; color: var(--muted); }
+.periodic-grid b { margin-top: .2rem; font-size: .95rem; }
+.panel-reading { min-height: 92px; padding: 1rem; border-left: 4px solid var(--aqua); border-radius: 10px; background: #eef3ef; }
+.wide-select { display: block; width: 100%; min-height: 48px; margin: .4rem 0 1rem; padding: .6rem .75rem; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--ink); font-weight: 750; }
+.charge-picker { margin: 0 0 1rem; padding: 0; border: 0; }
+.charge-picker legend { margin-bottom: .5rem; font-size: .78rem; font-weight: 800; }
+.charge-picker button { min-width: 52px; min-height: 44px; margin: 0 .3rem .4rem 0; border: 1px solid var(--line); border-radius: 10px; background: var(--white); cursor: pointer; font-weight: 850; }
+.charge-picker button:hover,.charge-picker button[aria-pressed="true"] { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+@media (max-width: 600px) {
+  .periodic-grid { grid-template-columns: repeat(18,38px); }
+}
