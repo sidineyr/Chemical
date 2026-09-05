@@ -67,9 +67,12 @@ O alinhamento à BNCC é pedagógico e não substitui o currículo da rede, o pr
 
 `atomicmodel.py` e `ChemicaLab.tex` foram preservados como materiais complementares. A animação de camadas eletrônicas é uma representação didática e não uma descrição literal de órbitas.
 
-## Licença
+## Licenças
 
-MIT.
+- **Código-fonte:** [MIT](LICENSE).
+- **Conteúdo educacional original:** [Creative Commons Atribuição 4.0 Internacional — CC BY 4.0](LICENSE-CONTENT.md).
+
+Marcas, traduções automáticas, simulações, imagens, referências e outros materiais de terceiros permanecem sujeitos às licenças e aos termos de seus respectivos titulares.
 
 ## Autoria e créditos
 
