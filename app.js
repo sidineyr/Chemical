@@ -59,7 +59,7 @@ function syncWelcomeLanguages(){
   return true;
 }
 window.googleTranslateElementInit=()=>{
-  new google.translate.TranslateElement({pageLanguage:'pt',autoDisplay:false},'google_translate_element');
+  new google.translate.TranslateElement({pageLanguage:'pt',includedLanguages:'pt,en',autoDisplay:false},'google_translate_element');
   const waitForLanguages=setInterval(()=>{if(syncWelcomeLanguages())clearInterval(waitForLanguages)},100);
   setTimeout(()=>clearInterval(waitForLanguages),10000);
 };
