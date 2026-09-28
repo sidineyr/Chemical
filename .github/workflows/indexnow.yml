@@ -1,0 +1,25 @@
+name: Notify IndexNow
+
+on:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Notify IndexNow about Chemical
+        shell: bash
+        run: |
+          curl --fail-with-body --retry 3 --silent --show-error \
+            --request POST \
+            --header 'Content-Type: application/json; charset=utf-8' \
+            --data '{"host":"sidineyr.github.io","key":"36cfeda50e26db88b560867933fe3476","keyLocation":"https://sidineyr.github.io/Chemical/indexnow-key.txt","urlList":["https://sidineyr.github.io/Chemical/"]}' \
+            https://api.indexnow.org/indexnow
