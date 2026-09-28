@@ -1,5 +1,7 @@
 # Chemical
 
+🌐 **Site publicado:** https://sidineyr.github.io/Chemical/
+
 Portal aberto de ensino de Química para o Ensino Médio brasileiro: aulas, animações, simulações, jogos, exercícios propostos e avaliação formativa.
 
 ## Objetivos
