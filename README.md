@@ -84,3 +84,8 @@ Marcas, traduções automáticas, simulações, imagens, referências e outros m
 - Bases educacionais e científicas: MEC, Sociedade Brasileira de Química, Conselho Federal de Química, PhET, PubChem e IUPAC, conforme os links do portal.
 
 O Chemical é independente. Essas menções reconhecem ferramentas e fontes utilizadas e não representam patrocínio, parceria formal ou aprovação institucional do conteúdo.
+
+
+## Contador de acessos (16/10/2026)
+
+A página inicial exibe um contador público Hits, chave `sidineyr.github.io/Chemical`. Conta carregamentos do indicador desde a instalação, não pessoas únicas. O serviço externo recebe dados técnicos da conexão; nenhuma resposta de atividade é enviada. O portfólio consulta o total pela API de estatísticas, sem carregar o SVG e sem acrescentar acessos. Histórico anterior à instalação não foi estimado.
